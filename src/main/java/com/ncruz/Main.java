@@ -1,17 +1,41 @@
 package com.ncruz;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import lombok.extern.java.Log;
+
+@Log
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        final ReactiveStream<String> stringStream = new ReactiveStream<>();//Publisher
+        final ReactiveStream<Integer> integerStream = new ReactiveStream<>();//Publisher
+
+        final String subsName1 = "Subscriber1";
+        final String subsName2 = "Subscriber2";
+        final String subsName3 = "Subscriber3";
+        final String subsName4 = "Subscriber4";
+
+        // subscriber for stringStream
+        final Subscriber<String> stringSubscriber1 = new SubscriberImpl<>(
+                str -> "Length: " + str.length(),
+                subsName1
+        );
+
+        // subscriber for stringStream
+        final Subscriber<String> stringSubscriber2 = new SubscriberImpl<>(
+                str -> "Uppercase: " + str.toUpperCase(),
+                subsName2
+        );
+
+        // subscriber for integerStream
+        final Subscriber<Integer> integerSubscriber1 = new SubscriberImpl<>(
+                num -> "Value: " + num,
+                subsName3
+        );
+
+        // subscriber for integerStream
+        final Subscriber<Integer> integerSubscriber2 = new SubscriberImpl<>(
+                num -> "Squared: " + (num * num),
+                subsName4
+        );
     }
 }

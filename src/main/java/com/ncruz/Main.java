@@ -37,5 +37,30 @@ public class Main {
                 num -> "Squared: " + (num * num),
                 subsName4
         );
+
+        //conectando los subscriptores con los publishers
+        stringStream
+                .subscribe(stringSubscriber1)
+                .subscribe(stringSubscriber2);
+
+        integerStream
+                .subscribe(integerSubscriber1)
+                .subscribe(integerSubscriber2);
+
+        log.info("-------[Emitting values to stringStream]--------");
+        stringStream.emit("Hello world");
+        stringStream.emit("This is a Subscriber2");
+        stringStream.emit("Ncruz-Dev");
+        stringStream.emit("My hyrthday is Nov sixth");
+
+        log.info("-------[Emitting values to integerStream]--------");
+        integerStream.emit(5);
+        integerStream.emit(10);
+
+        log.info("-------[Unsubscribing subscribers]--------");
+        stringStream.unsubscribe(stringSubscriber2);
+        integerStream.unsubscribe(integerSubscriber1);
+        integerStream.unsubscribe(integerSubscriber2);
+
     }
 }
